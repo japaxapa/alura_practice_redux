@@ -1,26 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  tasks: [
-    {
-      id: 1,
-      title: "Task 1",
-      description: "Description 1",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Task 2",
-      description: "Description 2",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Task 3",
-      description: "Description 3",
-      completed: true,
-    },
-  ],
+  tasks: [],
 };
 
 const taskSlice = createSlice({
@@ -38,16 +19,16 @@ const taskSlice = createSlice({
     },
 
     toggleTaskComplete: (state, action) => {
-      const task = state.task.find((task) => task.id == action.payload);
+      const task = state.tasks.find((task) => task.id == action.payload);
       if (task) task.completed = !task.completed;
     },
 
     editTask: (state, action) => {
       const { taskId, updatedTask } = action.payload;
-      const taskIndex = state.tasks.findIndex((task) => task.id == taskId);
+      const taskIndex = state.tasks.findIndex((task) => task.id === taskId);
 
       if (taskIndex !== -1) {
-        state.tasks[taskIndex] = { ...state.tasks[index], ...updatedTask };
+        state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...updatedTask };
       }
     },
 
