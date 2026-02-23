@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   tasks: [],
@@ -43,10 +43,12 @@ export const { addTask, toggleTaskComplete, editTask, deleteTask } =
 
 export const selectTasks = (state) => state.tasks.tasks;
 
-export const selectPendingTasks = (state) =>
-  state.tasks.tasks.filter((task) => !task.completed);
+export const selectPendingTasks = createSelector(selectTasks, (tasks) =>
+  tasks.filter((task) => !task.completed),
+);
 
-export const selectCompletedTasks = (state) =>
-  state.tasks.tasks.filter((task) => task.completed);
+export const selectCompletedTasks = createSelector(selectTasks, (tasks) =>
+  tasks.filter((task) => task.completed),
+);
 
 export default taskSlice.reducer;
